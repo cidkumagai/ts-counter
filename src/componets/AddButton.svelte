@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { counterList } from './stores';
+    import { counterList } from '../stores';
 
     const addCounter = () => {
         counterList.update(() => {
