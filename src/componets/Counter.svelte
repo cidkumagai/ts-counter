@@ -43,7 +43,6 @@
 </script>
 
 {#each $counterList as counterItem}
-  <p>{counterItem.title}</p>
   <div class="counter">
     <input
       class="counter_title"
