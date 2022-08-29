@@ -1,16 +1,5 @@
 import { writable } from 'svelte/store';
-
-export type CounterItem = {
-  id: number;
-  title: string;
-  number: number;
-};
-
-export type CounterState = {
-  titleList: string[];
-  sumCount: number;
-  counterList: CounterItem[];
-};
+import type { CounterItem } from './types/types';
 
 export const counterList = writable<CounterItem[]>([
   { id: 0, title: 'new', number: 0 },

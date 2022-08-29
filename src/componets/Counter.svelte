@@ -1,58 +1,70 @@
 <script lang="ts">
   import { counterList } from '../stores';
+  import type { CounterItem } from '../types/types';
 
   // タイトル変更用関数
-  const ChangeTitle = (index: number, title: string) => {
-    counterList.subscribe(($counterList) => {
-      $counterList[index].title = title;
+  const ChangeTitle = (id: number, title: string) => {
+    counterList.update(($counterList) => {
+      return $counterList.map((item) => {
+        if (item.id === id) {
+          item.title = title;
+        }
+        return item;
+      });
     });
   };
 
   // インクリメント用関数
-  const Increment = (index: number) => {
-    $counterList[index].number++;
+  const Increment = (id: number) => {
+    const getIndex = (element: CounterItem) => element.id === id;
+    $counterList[$counterList.findIndex(getIndex)].number++;
   };
 
   // デクリメント用関数
-  const Decrement = (index: number) => {
-    if ($counterList[index].number > 0) {
-      $counterList[index].number -= 1;
+  const Decrement = (id: number) => {
+    const getIndex = (element: CounterItem) => element.id === id;
+    if ($counterList[$counterList.findIndex(getIndex)].number > 0) {
+      $counterList[$counterList.findIndex(getIndex)].number--;
     }
   };
 
   // リセット用関数
-  const Reset = (index: number) => {
-    $counterList[index].number = 0;
+  const Reset = (id: number) => {
+    const getIndex = (element: CounterItem) => element.id === id;
+    $counterList[$counterList.findIndex(getIndex)].number = 0;
   };
 
   // 削除用関数
-  const Delete = (index: number) => {
+  const Delete = (id: number) => {
     counterList.update(($counterList) => {
-      return $counterList.filter((item) => item.id !== index);
+      return $counterList.filter((item) => item.id !== id);
     });
   };
 </script>
 
-{#each $counterList as counterItem, index}
+{#each $counterList as counterItem}
+  <p>{counterItem.title}</p>
   <div class="counter">
     <input
       class="counter_title"
       type="text"
       bind:value={counterItem.title}
-      on:change={() => ChangeTitle(index, counterItem.title)}
+      on:change={() => ChangeTitle(counterItem.id, counterItem.title)}
     />
     <p class="counter_number">{counterItem.number}</p>
     <div class="counter_buttons">
-      <button class="counter_buttons_item add" on:click={() => Increment(index)}
-        >+</button
+      <button
+        class="counter_buttons_item add"
+        on:click={() => Increment(counterItem.id)}>+</button
       ><button
         class="counter_buttons_item minus"
-        on:click={() => Decrement(index)}>-</button
-      ><button class="counter_buttons_item reset" on:click={() => Reset(index)}
-        >0</button
+        on:click={() => Decrement(counterItem.id)}>-</button
+      ><button
+        class="counter_buttons_item reset"
+        on:click={() => Reset(counterItem.id)}>0</button
       >
     </div>
-    <p class="counter_delete" on:click={() => Delete(index)}>x</p>
+    <p class="counter_delete" on:click={() => Delete(counterItem.id)}>x</p>
   </div>
 {/each}
 
