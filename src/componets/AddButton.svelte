@@ -3,8 +3,11 @@
 
     const addCounter = () => {
         counterList.update(() => {
-            return [...$counterList, {id:$counterList.length, title: 'new', number: 0}]
-        })
+            return [
+                ...$counterList,
+                { id: $counterList.length, title: 'new', number: 0 },
+            ];
+        });
     };
 </script>
 

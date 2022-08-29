@@ -15,21 +15,3 @@ export type CounterState = {
 export const counterList = writable<CounterItem[]>([
     { id: 0, title: 'new', number: 0 },
 ]);
-
-function getCounters() {
-    return counterList;
-}
-
-// function getTitleList() {
-//     const titleList = $counterList.map((item) => {
-//         return item.title;
-//     });
-// }
-
-export const counter = getCounters();
-
-// export const counterList = writable<CounterState>({
-//     titleList: [],
-//     sumCount: 0,
-//     counterList: [{ id: 0, title: 'new', number: 0 }],
-// });

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { counterList } from './stores';
+    import { counterList } from '../stores';
 
     // タイトルを配列で取得
     $: titleList = $counterList.map((item) => {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { counterList } from './stores';
+    import { counterList } from '../stores';
 
     // タイトル変更用関数
     const ChangeTitle = (index: number, title: string) => {
